@@ -12,8 +12,8 @@
     <!-- Chosen Palette: Warm Neutrals -->
     <!-- Application Structure Plan: A single-page, scrolling digital portfolio. The structure is thematic, designed to guide the user through a narrative of Milad's expertise. It starts with a high-level summary (Hero & Dashboard), dives into career history (Interactive Timeline), details skills (Competencies), highlights forward-thinking projects (Innovation Hub), and provides detailed proof (Filterable Credentials & Accomplishments). This structure is more engaging than a traditional resume, allowing recruiters to quickly grasp key strengths and explore details on demand, which is ideal for usability. -->
     <!-- Visualization & Content Choices: 
-        - Report Info: Core Expertise -> Goal: Compare/Inform -> Viz: Donut Chart -> Interaction: Hover to see details -> Justification: Provides a quick, visual breakdown of skill distribution -> Library: Chart.js (Canvas).
-        - Report Info: Professional Experience -> Goal: Show Change/Explore -> Viz: Vertical Timeline -> Interaction: Click tabs to reveal job details -> Justification: More dynamic and less overwhelming than a long text block -> Method: HTML/CSS/JS.
+        - Report Info: Core Expertise -> Goal: Compare/Inform -> Viz: Donut Chart + Detailed List -> Interaction: Hover on chart for high-level, static list for details -> Justification: Provides a quick, visual breakdown of skill distribution while ensuring all granular expertise points are visible -> Library: Chart.js (Canvas) for chart, HTML/CSS for list.
+        - Report Info: Professional Experience -> Goal: Show Change/Explore -> Viz: Vertical Timeline -> Interaction: Click tabs to reveal job details -> Justification: More dynamic and less overwhelming than a long text block, now with all granular responsibilities included -> Method: HTML/CSS/JS.
         - Report Info: Certifications -> Goal: Organize -> Viz: Filterable Grid -> Interaction: Click buttons to filter by category -> Justification: Manages a long list of credentials, making it easy for users to find relevant info -> Method: HTML/JS.
         - Report Info: Key Accomplishments -> Goal: Inform/Impact -> Viz: Icon-based cards -> Interaction: Static display for clarity -> Justification: Makes key achievements stand out visually -> Method: HTML/CSS. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
@@ -74,7 +74,7 @@
     <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <div class="text-2xl font-extrabold text-slate-800">
-                <a href="#">MM</a>
+                <a href="#">Milad Mousavi</a>
             </div>
             <div class="hidden md:flex space-x-8">
                 <a href="#summary" class="nav-link text-slate-600 font-medium">Summary</a>
@@ -94,9 +94,9 @@
             <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-4 leading-tight">Milad Mousavi</h1>
             <p class="text-xl md:text-2xl text-blue-800 font-medium mb-8">Healthcare IT Director & Infrastructure Architect</p>
             <div class="flex justify-center items-center space-x-6 text-slate-500">
-                <a href="#" target="_blank" class="hover:text-blue-800 transition-colors">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/miladmousavi" target="_blank" class="hover:text-blue-800 transition-colors">LinkedIn</a>
                 <span class="text-slate-300">|</span>
-                <a href="#" target="_blank" class="hover:text-blue-800 transition-colors">GitHub</a>
+                <a href="https://github.com/MiMousavi" target="_blank" class="hover:text-blue-800 transition-colors">GitHub</a>
                 <span class="text-slate-300">|</span>
                 <span class="flex items-center">
                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
@@ -110,10 +110,10 @@
              <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg max-w-4xl mx-auto">
                  <h2 class="text-3xl font-bold text-slate-900 mb-4 text-center">Professional Summary</h2>
                  <p class="text-lg text-slate-600 mb-4 leading-relaxed">
-                    A strategic and hands-on Healthcare IT Director and Infrastructure Architect with over 12 years of experience leading secure, compliant, and scalable IT environments in highly regulated clinical settings. Expert in private cloud, hybrid Microsoft infrastructure, and compliance-based systems supporting radiology, research, and diagnostics.
+                    A strategic and hands-on Healthcare IT Director and Infrastructure Architect with over 12 years of experience leading secure, compliant, and scalable IT environments in highly regulated clinical settings. Expert in private cloud, hybrid Microsoft infrastructure, and compliance-based systems supporting radiology, research, and diagnostics. Holds an MBA and multiple technical certifications. Strong foundation in FDA 21 CFR Part 11, HIPAA, and GxP validation.
                  </p>
                  <p class="text-lg text-slate-600 leading-relaxed">
-                    While not a programmer, I specialize in aligning business and clinical requirements with secure infrastructure design. I leverage modern AI development platforms like Microsoft Copilot and ChatGPT to create and iterate on custom healthcare solutions. My strength lies in vision, integration, and execution.
+                    While not a programmer, I specialize in aligning business and clinical requirements with secure infrastructure design. With the rise of AI development platforms, I now leverage tools like Microsoft Copilot and ChatGPT to create and iterate on custom healthcare solutions—such as eCTD Gini, a conceptual AI-powered system for generating compliant regulatory submissions. My strength lies in vision, integration, and execution—not coding.
                  </p>
             </div>
         </section>
@@ -121,12 +121,26 @@
         <!-- Expertise & Dashboard Section -->
         <section id="expertise" class="mb-24 scroll-mt-20">
             <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Core Expertise</h2>
-            <p class="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">A balanced skill set spanning infrastructure, security, compliance, and clinical systems support. The chart below provides a visual breakdown of my primary focus areas.</p>
+            <p class="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">A balanced skill set spanning infrastructure, security, compliance, and clinical systems support. The chart below provides a visual breakdown of my primary focus areas, while the detailed list ensures all specific competencies are highlighted.</p>
             <div class="bg-white p-8 rounded-2xl shadow-lg">
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div>
-                        <ul id="expertise-list" class="space-y-4">
-                            <!-- JS will populate this -->
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Key Focus Areas</h3>
+                        <ul id="expertise-summary-list" class="space-y-4">
+                            <!-- JS will populate high-level summary here for the chart -->
+                        </ul>
+                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Detailed Competencies</h3>
+                        <ul class="list-disc list-inside space-y-2 text-slate-600">
+                            <li>Healthcare IT Operations & Compliance</li>
+                            <li>Private Cloud: XCP-ng, XenServer, Hyper-V, VMware</li>
+                            <li>Microsoft 365, Azure AD, Office 365 Security</li>
+                            <li>FDA 21 CFR Part 11 & HIPAA Implementation</li>
+                            <li>Disaster Recovery & Business Continuity (BC/DR)</li>
+                            <li>SOP Development & Regulatory Audit Response</li>
+                            <li>Imaging System Support (RIS/PACS, DICOM, AD roles)</li>
+                            <li>Building Management Systems (BMS, Niagara)</li>
+                            <li>Endpoint Security (Defender for M365, GPO, MFA)</li>
+                            <li>Secure Remote Access (Fortinet SD-WAN, VPN, VLAN)</li>
                         </ul>
                     </div>
                     <div class="chart-container">
@@ -155,15 +169,15 @@
             <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                     <h3 class="text-xl font-bold text-slate-800 mb-3">eCTD Gini (Concept)</h3>
-                    <p class="text-slate-600">A visionary AI-driven tool to streamline Electronic Common Technical Document creation. Conceptualized to parse documents, tag metadata, and validate against SOPs, dramatically accelerating regulatory submissions.</p>
+                    <p class="text-slate-600">A visionary AI-driven tool to streamline Electronic Common Technical Document creation and submission workflows. Combines document parsing, metadata tagging, SOP validation, and PDF/A rendering—powered by AI. Conceptualized architecture, drafted user flow, and collaborated with GPT-based assistants for rapid prototyping.</p>
                 </div>
                 <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                     <h3 class="text-xl font-bold text-slate-800 mb-3">IT Audit Pack Automation</h3>
-                    <p class="text-slate-600">Developed pre-assembled technical audit evidence packs with automated log rotation, access records, and SOP references. This initiative cut audit preparation time by over 80%.</p>
+                    <p class="text-slate-600">Developed pre-assembled technical audit evidence packs with automated log rotation, access change records, and SOP references—cutting prep time for audits by 80%.</p>
                 </div>
                 <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                     <h3 class="text-xl font-bold text-slate-800 mb-3">M365 Governance Portal</h3>
-                    <p class="text-slate-600">Designed SharePoint and Power Automate flows to track time-off requests, IT access changes, and system revalidations, creating a centralized, automated governance dashboard.</p>
+                    <p class="text-slate-600">Designed SharePoint and Power Automate flows to track time-off requests, approvals, IT access changes, and system revalidations.</p>
                 </div>
             </div>
         </section>
@@ -228,7 +242,7 @@
     </main>
     
     <footer class="text-center py-8 mt-16 border-t border-slate-200">
-        <p class="text-slate-500">&copy; 2024 Milad Mousavi. All rights reserved.</p>
+        <p class="text-slate-500">&copy; 2025 Milad Mousavi. All rights reserved.</p>
     </footer>
 
     <script>
@@ -252,19 +266,24 @@
                     company: 'RadioMedix Inc. & Excel Diagnostics',
                     date: 'June 2013 – Present',
                     points: [
-                        'Designed and maintain a secure, scalable private cloud (XCP-ng, XenServer, Hyper-V) managing 20+ critical VMs.',
-                        'Architected and validated an enterprise Disaster Recovery and Business Continuity Plan meeting FDA 21 CFR Part 11 standards.',
-                        'Authored comprehensive SOPs for system validation, network security, backups, and audit logging.',
-                        'Migrated services to Office 365 with hybrid AD, implementing MFA, Conditional Access, and Defender for M365.',
-                        'Managed RIS/PACS environment, ensuring AD integration, VLAN segmentation, and DICOM routing.',
-                        'Secured and networked Tridium Niagara BMS for environmental monitoring and compliance reporting.'
+                        'Designed and maintained a secure, scalable private cloud built on XCP-ng, XenServer, and Hyper-V, managing 20+ critical VMs across clinical and operational functions.',
+                        'Led infrastructure modernization across multiple healthcare sites, consolidating legacy systems into a unified virtual environment with high availability and live migration capabilities.',
+                        'Architected and validated an enterprise Disaster Recovery and Business Continuity Plan, meeting FDA 21 CFR Part 11 traceability standards.',
+                        'Authored comprehensive Standard Operating Procedures (SOPs) on topics including system validation, network security, backup retention, email compliance, and audit logging.',
+                        'Acted as compliance liaison for FDA and HIPAA audits, preparing infrastructure validation reports, access logs, change documentation, and policy references.',
+                        'Migrated Exchange and Microsoft services to Office 365 with hybrid AD synchronization, enabling seamless SSO, data retention, and secure identity governance.',
+                        'Implemented organization-wide MFA, Conditional Access, SPF/DKIM/DMARC, and Defender for M365 across endpoints and mail services to drastically reduce phishing and credential attacks.',
+                        'Managed RIS/PACS environment: integrated with AD roles, segmented with VLANs, DICOM routing, and role-based modality access.',
+                        'Supported PET/CT and diagnostic image archiving and retrieval workflows, ensuring 24/7 uptime and disaster-proof image retention.',
+                        'Secured and networked Tridium Niagara BMS, fire panel, and HVAC control systems using VLAN isolation and RBAC for environmental monitoring (pressure, temperature, alarms).',
+                        'Created IT-managed dashboard access to BMS metrics for compliance reporting and real-time facility status tracking.'
                     ]
                 }
             ];
 
             const certifications = [
-                { name: 'Azure Solutions Architect Expert', category: 'microsoft cloud' },
-                { name: 'Azure AI Engineer Associate', category: 'microsoft cloud' },
+                { name: 'Microsoft Certified: Azure Solutions Architect Expert', category: 'microsoft cloud' },
+                { name: 'Microsoft Certified: Azure AI Engineer Associate', category: 'microsoft cloud' },
                 { name: 'MCSE: Core Infrastructure', category: 'microsoft infra' },
                 { name: 'MCSA: Windows Server 2016', category: 'microsoft infra' },
                 { name: 'AWS Certified Solutions Architect – Associate', category: 'cloud' },
@@ -279,7 +298,7 @@
             ];
 
             function renderExpertise() {
-                const listEl = document.getElementById('expertise-list');
+                const listEl = document.getElementById('expertise-summary-list');
                 expertiseData.labels.forEach((label, index) => {
                     const li = document.createElement('li');
                     li.className = 'flex items-center p-4 bg-slate-50 rounded-lg';
