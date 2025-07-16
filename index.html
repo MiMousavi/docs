@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Chosen Palette: Professional Harmony - Primary: #1A2B42, Accent: #00B8D9, Background: #F8F8F8, Text: #333333 -->
     <!-- Application Structure Plan: A single-page, scrolling digital portfolio. The structure is thematic, designed to guide the user through a narrative of Milad's expertise. It starts with a high-level summary (Hero & Dashboard), dives into career history (Interactive Timeline), details skills (Competencies), highlights forward-thinking projects (Innovation Hub), and provides detailed proof (Filterable Credentials & Accomplishments). This structure is more engaging than a traditional resume, allowing recruiters to quickly grasp key strengths and explore details on demand, which is ideal for usability. -->
     <!-- Visualization & Content Choices: 
         - Report Info: Core Expertise -> Goal: Compare/Inform -> Viz: Donut Chart + Detailed List -> Interaction: Hover on chart for high-level, static list for details -> Justification: Provides a quick, visual breakdown of skill distribution while ensuring all granular expertise points are visible -> Library: Chart.js (Canvas) for chart, HTML/CSS for list.
@@ -20,7 +20,8 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
+            background-color: #F8F8F8; /* Light background */
+            color: #333333; /* Dark text */
         }
         .chart-container {
             position: relative;
@@ -40,7 +41,7 @@
             transition: color 0.3s, border-color 0.3s;
         }
         .nav-link:hover {
-            color: #1e3a8a; /* blue-900 */
+            color: #00B8D9; /* Accent color */
         }
         .timeline-item-content {
             transition: max-height 0.7s ease-in-out, opacity 0.5s ease-in-out, transform 0.7s ease-in-out;
@@ -50,7 +51,7 @@
             overflow: hidden;
         }
         .timeline-item-content.active {
-            max-height: 1000px;
+            max-height: 1000px; /* Sufficiently large to show content */
             opacity: 1;
             transform: translateY(0);
         }
@@ -58,79 +59,97 @@
             transition: all 0.3s ease;
         }
         .timeline-connector {
-            width: 2px;
-            background-color: #e2e8f0; /* slate-200 */
+            width: 3px; /* Thicker connector */
+            background-color: #E0E0E0; /* Lighter connector color */
+        }
+        .filter-btn {
+            background-color: #E0E0E0; /* Light gray for inactive */
+            color: #333333;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover {
+            background-color: #D0D0D0;
         }
         .filter-btn.active {
-            background-color: #1e3a8a !important; /* blue-900 */
+            background-color: #1A2B42 !important; /* Primary color */
             color: #ffffff !important;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            box-shadow: 0 6px 12px -2px rgba(0,0,0,0.2), 0 3px 6px -3px rgba(0,0,0,0.15);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1), 0 6px 12px -6px rgba(0,0,0,0.08);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -8px rgba(0,0,0,0.15), 0 8px 16px -8px rgba(0,0,0,0.12);
         }
     </style>
 </head>
-<body class="text-slate-700">
+<body class="text-gray-800">
 
     <!-- Header & Navigation -->
-    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <div class="text-2xl font-extrabold text-slate-800">
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-3xl font-extrabold text-gray-900 tracking-tight">
                 <a href="#">Milad Mousavi</a>
             </div>
-            <div class="hidden md:flex space-x-8">
-                <a href="#summary" class="nav-link text-slate-600 font-medium">Summary</a>
-                <a href="#experience" class="nav-link text-slate-600 font-medium">Experience</a>
-                <a href="#expertise" class="nav-link text-slate-600 font-medium">Expertise</a>
-                <a href="#initiatives" class="nav-link text-slate-600 font-medium">Initiatives</a>
-                <a href="#credentials" class="nav-link text-slate-600 font-medium">Credentials</a>
+            <div class="hidden md:flex space-x-10">
+                <a href="#summary" class="nav-link text-gray-600 font-semibold hover:text-[#00B8D9] transition-colors duration-200">Summary</a>
+                <a href="#experience" class="nav-link text-gray-600 font-semibold hover:text-[#00B8D9] transition-colors duration-200">Experience</a>
+                <a href="#expertise" class="nav-link text-gray-600 font-semibold hover:text-[#00B8D9] transition-colors duration-200">Expertise</a>
+                <a href="#initiatives" class="nav-link text-gray-600 font-semibold hover:text-[#00B8D9] transition-colors duration-200">Initiatives</a>
+                <a href="#credentials" class="nav-link text-gray-600 font-semibold hover:text-[#00B8D9] transition-colors duration-200">Credentials</a>
             </div>
-            <a href="mailto:smmz@att.net" class="hidden md:block bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">Contact Me</a>
+            <a href="mailto:smmz@att.net" class="hidden md:block bg-[#1A2B42] hover:bg-[#00B8D9] text-white font-bold py-2 px-5 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md">Contact Me</a>
         </nav>
     </header>
 
-    <main class="container mx-auto px-6 py-8 md:py-16">
+    <main class="container mx-auto px-6 py-12 md:py-20">
 
         <!-- Hero Section -->
-        <section id="hero" class="text-center mb-24">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-4 leading-tight">Milad Mousavi</h1>
-            <p class="text-xl md:text-2xl text-blue-800 font-medium mb-8">Healthcare IT Director & Infrastructure Architect</p>
-            <div class="flex justify-center items-center space-x-6 text-slate-500">
-                <a href="https://www.linkedin.com/in/miladmousavi" target="_blank" class="hover:text-blue-800 transition-colors">LinkedIn</a>
-                <span class="text-slate-300">|</span>
-                <a href="https://github.com/MiMousavi" target="_blank" class="hover:text-blue-800 transition-colors">GitHub</a>
-                <span class="text-slate-300">|</span>
+        <section id="hero" class="text-center mb-28 bg-gradient-to-br from-white to-gray-50 p-10 rounded-3xl shadow-xl">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 mb-5 leading-tight tracking-tight">Milad Mousavi</h1>
+            <p class="text-2xl md:text-3xl text-[#1A2B42] font-semibold mb-10">Healthcare IT Director & Infrastructure Architect</p>
+            <div class="flex justify-center items-center space-x-8 text-gray-600 text-lg">
+                <a href="https://www.linkedin.com/in/miladmousavi" target="_blank" class="hover:text-[#00B8D9] transition-colors duration-200 flex items-center">
+                    <span class="mr-2">&#x1F517;</span> LinkedIn
+                </a>
+                <span class="text-gray-300 text-2xl">|</span>
+                <a href="https://github.com/MiMousavi" target="_blank" class="hover:text-[#00B8D9] transition-colors duration-200 flex items-center">
+                    <span class="mr-2">&#x1F4BB;</span> GitHub
+                </a>
+                <span class="text-gray-300 text-2xl">|</span>
                 <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                    Houston, TX
+                    <span class="mr-2">&#x1F4CD;</span> Houston, TX
                 </span>
             </div>
         </section>
 
         <!-- Professional Summary Section -->
-        <section id="summary" class="mb-24 scroll-mt-20">
-             <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg max-w-4xl mx-auto">
-                 <h2 class="text-3xl font-bold text-slate-900 mb-4 text-center">Professional Summary</h2>
-                 <p class="text-lg text-slate-600 mb-4 leading-relaxed">
+        <section id="summary" class="mb-28 scroll-mt-24">
+             <div class="bg-white p-10 md:p-14 rounded-3xl card-shadow card-hover transition-all duration-300 max-w-5xl mx-auto">
+                 <h2 class="text-4xl font-bold text-gray-900 mb-6 text-center">Professional Summary</h2>
+                 <p class="text-lg text-gray-700 mb-6 leading-relaxed">
                     A strategic and hands-on Healthcare IT Director and Infrastructure Architect with over 12 years of experience leading secure, compliant, and scalable IT environments in highly regulated clinical settings. Expert in private cloud, hybrid Microsoft infrastructure, and compliance-based systems supporting radiology, research, and diagnostics. Holds an MBA and multiple technical certifications. Strong foundation in FDA 21 CFR Part 11, HIPAA, and GxP validation.
                  </p>
-                 <p class="text-lg text-slate-600 leading-relaxed">
+                 <p class="text-lg text-gray-700 leading-relaxed">
                     While not a programmer, I specialize in aligning business and clinical requirements with secure infrastructure design. With the rise of AI development platforms, I now leverage tools like Microsoft Copilot and ChatGPT to create and iterate on custom healthcare solutions—such as eCTD Gini, a conceptual AI-powered system for generating compliant regulatory submissions. My strength lies in vision, integration, and execution—not coding.
                  </p>
             </div>
         </section>
 
         <!-- Expertise & Dashboard Section -->
-        <section id="expertise" class="mb-24 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Core Expertise</h2>
-            <p class="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">A balanced skill set spanning infrastructure, security, compliance, and clinical systems support. The chart below provides a visual breakdown of my primary focus areas, while the detailed list ensures all specific competencies are highlighted.</p>
-            <div class="bg-white p-8 rounded-2xl shadow-lg">
-                <div class="grid md:grid-cols-2 gap-8 items-center">
+        <section id="expertise" class="mb-28 scroll-mt-24">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4 text-center">Core Expertise</h2>
+            <p class="text-lg text-gray-700 mb-14 text-center max-w-4xl mx-auto">A balanced skill set spanning infrastructure, security, compliance, and clinical systems support. The interactive dashboard below provides a visual breakdown of my primary focus areas, complemented by a detailed list of specific competencies.</p>
+            <div class="bg-white p-10 rounded-3xl card-shadow">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h3 class="text-xl font-bold text-slate-800 mb-4">Key Focus Areas</h3>
-                        <ul id="expertise-summary-list" class="space-y-4">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Key Focus Areas</h3>
+                        <ul id="expertise-summary-list" class="space-y-5">
                             <!-- JS will populate high-level summary here for the chart -->
                         </ul>
-                        <h3 class="text-xl font-bold text-slate-800 mt-8 mb-4">Detailed Competencies</h3>
-                        <ul class="list-disc list-inside space-y-2 text-slate-600">
+                        <h3 class="text-2xl font-bold text-gray-900 mt-10 mb-6">Detailed Competencies</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700 text-base">
                             <li>Healthcare IT Operations & Compliance</li>
                             <li>Private Cloud: XCP-ng, XenServer, Hyper-V, VMware</li>
                             <li>Microsoft 365, Azure AD, Office 365 Security</li>
@@ -151,66 +170,66 @@
         </section>
         
         <!-- Experience Timeline Section -->
-        <section id="experience" class="mb-24 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Career Journey</h2>
-            <p class="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">A decade-plus of dedicated leadership in healthcare IT. Click on each role to expand and see key responsibilities and accomplishments from that period.</p>
-            <div class="max-w-3xl mx-auto relative">
-                <div class="timeline-connector absolute top-0 bottom-0 left-5"></div>
-                <div id="timeline-container" class="space-y-4">
+        <section id="experience" class="mb-28 scroll-mt-24">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4 text-center">Career Journey</h2>
+            <p class="text-lg text-gray-700 mb-14 text-center max-w-4xl mx-auto">A decade-plus of dedicated leadership in healthcare IT. Click on each role to expand and see key responsibilities and accomplishments from that period, offering a comprehensive view of my professional growth.</p>
+            <div class="max-w-4xl mx-auto relative">
+                <div class="timeline-connector absolute top-0 bottom-0 left-6"></div>
+                <div id="timeline-container" class="space-y-8">
                     <!-- Timeline items will be dynamically inserted here -->
                 </div>
             </div>
         </section>
         
         <!-- Initiatives & Ideas Section -->
-        <section id="initiatives" class="mb-24 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Innovation & Strategic Initiatives</h2>
-            <p class="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">Beyond daily operations, I focus on developing forward-thinking solutions to improve efficiency and compliance. Here are a few key conceptual and implemented projects.</p>
-            <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">eCTD Gini (Concept)</h3>
-                    <p class="text-slate-600">A visionary AI-driven tool to streamline Electronic Common Technical Document creation and submission workflows. Combines document parsing, metadata tagging, SOP validation, and PDF/A rendering—powered by AI. Conceptualized architecture, drafted user flow, and collaborated with GPT-based assistants for rapid prototyping.</p>
+        <section id="initiatives" class="mb-28 scroll-mt-24">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4 text-center">Innovation & Strategic Initiatives</h2>
+            <p class="text-lg text-gray-700 mb-14 text-center max-w-4xl mx-auto">Beyond daily operations, I consistently focus on developing forward-thinking solutions to improve efficiency, security, and compliance. Here are a few key conceptual and implemented projects that highlight my strategic vision.</p>
+            <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-10">
+                <div class="bg-white p-8 rounded-2xl card-shadow card-hover transition-all duration-300">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">eCTD Gini (Concept)</h3>
+                    <p class="text-gray-700 leading-relaxed">A visionary AI-driven healthcare compliance tool designed to streamline Electronic Common Technical Document creation and submission workflows. Combines document parsing, metadata tagging, SOP validation, and PDF/A rendering—powered by AI. Conceptualized architecture, drafted user flow, and collaborated with GPT-based assistants for rapid prototyping.</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">IT Audit Pack Automation</h3>
-                    <p class="text-slate-600">Developed pre-assembled technical audit evidence packs with automated log rotation, access change records, and SOP references—cutting prep time for audits by 80%.</p>
+                <div class="bg-white p-8 rounded-2xl card-shadow card-hover transition-all duration-300">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">IT-Enabled Audit Pack Automation</h3>
+                    <p class="text-gray-700 leading-relaxed">Developed pre-assembled technical audit evidence packs with automated log rotation, access change records, and SOP references—cutting prep time for audits by an impressive 80%, significantly enhancing audit readiness.</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">M365 Governance Portal</h3>
-                    <p class="text-slate-600">Designed SharePoint and Power Automate flows to track time-off requests, approvals, IT access changes, and system revalidations.</p>
+                <div class="bg-white p-8 rounded-2xl card-shadow card-hover transition-all duration-300">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">M365 Governance Portal & Automation</h3>
+                    <p class="text-gray-700 leading-relaxed">Designed SharePoint and Power Automate flows to track time-off requests, approvals, IT access changes, and system revalidations, creating a centralized, automated governance dashboard for improved oversight and efficiency.</p>
                 </div>
             </div>
         </section>
 
         <!-- Credentials Section -->
-        <section id="credentials" class="mb-24 scroll-mt-20">
-            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Education & Certifications</h2>
-            <p class="text-lg text-slate-600 mb-8 text-center max-w-3xl mx-auto">A foundation of formal education combined with continuous professional development. Use the filters to explore my extensive list of certifications.</p>
+        <section id="credentials" class="mb-28 scroll-mt-24">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4 text-center">Education & Certifications</h2>
+            <p class="text-lg text-gray-700 mb-14 text-center max-w-4xl mx-auto">A strong foundation of formal education combined with continuous professional development. Use the filters below to explore my extensive list of certifications, showcasing a commitment to lifelong learning and expertise.</p>
             
             <div class="grid md:grid-cols-3 gap-8 mb-12">
-                 <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <h3 class="font-bold text-blue-900">MBA</h3>
-                    <p>University of the People, 2024</p>
+                 <div class="bg-white p-8 rounded-xl card-shadow text-center">
+                    <h3 class="font-bold text-[#1A2B42] text-xl mb-2">Master of Business Administration (MBA)</h3>
+                    <p class="text-gray-700">University of the People – 2024</p>
                 </div>
-                 <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <h3 class="font-bold text-blue-900">Bachelor of Science</h3>
-                    <p>University of Houston, 2017</p>
+                 <div class="bg-white p-8 rounded-xl card-shadow text-center">
+                    <h3 class="font-bold text-[#1A2B42] text-xl mb-2">Bachelor of Science – Computer & Information Systems</h3>
+                    <p class="text-gray-700">University of Houston – 2017</p>
                 </div>
-                 <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                    <h3 class="font-bold text-blue-900">Associate Degree</h3>
-                    <p>Houston Community College, 2013</p>
+                 <div class="bg-white p-8 rounded-xl card-shadow text-center">
+                    <h3 class="font-bold text-[#1A2B42] text-xl mb-2">Associate Degree – Computer Science</h3>
+                    <p class="text-gray-700">Houston Community College – 2013</p>
                 </div>
             </div>
 
-            <div class="bg-white p-8 rounded-2xl shadow-lg">
-                <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8" id="cert-filters">
-                    <button class="filter-btn active bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-colors" data-filter="all">All</button>
-                    <button class="filter-btn bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-colors" data-filter="microsoft">Microsoft</button>
-                    <button class="filter-btn bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-colors" data-filter="cloud">Cloud</button>
-                    <button class="filter-btn bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-colors" data-filter="security">Security</button>
-                    <button class="filter-btn bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-colors" data-filter="infra">Infrastructure</button>
+            <div class="bg-white p-10 rounded-3xl card-shadow">
+                <div class="flex flex-wrap justify-center gap-3 md:gap-5 mb-10" id="cert-filters">
+                    <button class="filter-btn active px-6 py-3 rounded-full font-semibold text-lg">All</button>
+                    <button class="filter-btn px-6 py-3 rounded-full font-semibold text-lg" data-filter="microsoft">Microsoft</button>
+                    <button class="filter-btn px-6 py-3 rounded-full font-semibold text-lg" data-filter="cloud">Cloud</button>
+                    <button class="filter-btn px-6 py-3 rounded-full font-semibold text-lg" data-filter="security">Security</button>
+                    <button class="filter-btn px-6 py-3 rounded-full font-semibold text-lg" data-filter="infra">Infrastructure</button>
                 </div>
-                <div id="cert-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 text-center">
+                <div id="cert-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 text-center">
                     <!-- Certifications will be dynamically inserted here -->
                 </div>
             </div>
@@ -218,31 +237,31 @@
         
         <!-- Key Accomplishments Section -->
         <section id="accomplishments">
-             <h2 class="text-3xl font-bold text-slate-900 mb-12 text-center">Key Career Accomplishments</h2>
+             <h2 class="text-4xl font-bold text-gray-900 mb-14 text-center">Key Career Accomplishments</h2>
              <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-blue-800 text-white p-6 rounded-xl shadow-lg">
-                    <p class="font-bold mb-2">Validated DR Plan</p>
-                    <p class="text-sm opacity-90">Delivered full DR plan with cloud redundancy, tested quarterly and validated in FDA audits.</p>
+                <div class="bg-[#1A2B42] text-white p-8 rounded-xl card-shadow card-hover transition-all duration-300">
+                    <p class="font-bold text-xl mb-3">Validated DR Plan</p>
+                    <p class="text-base opacity-90 leading-relaxed">Successfully delivered a comprehensive Disaster Recovery plan with cloud redundancy, rigorously tested quarterly and validated in real FDA audits, ensuring zero data loss and maximum uptime.</p>
                 </div>
-                 <div class="bg-blue-800 text-white p-6 rounded-xl shadow-lg">
-                    <p class="font-bold mb-2">Zero-Downtime Migration</p>
-                    <p class="text-sm opacity-90">Modernized RIS/PACS imaging systems with zero downtime or disruption to clinical operations.</p>
+                 <div class="bg-[#1A2B42] text-white p-8 rounded-xl card-shadow card-hover transition-all duration-300">
+                    <p class="font-bold text-xl mb-3">Zero-Downtime Migration</p>
+                    <p class="text-base opacity-90 leading-relaxed">Orchestrated the modernization of RIS/PACS imaging systems, achieving a seamless transition with zero downtime, preserving critical clinical operations.</p>
                 </div>
-                 <div class="bg-blue-800 text-white p-6 rounded-xl shadow-lg">
-                    <p class="font-bold mb-2">BMS Integration</p>
-                    <p class="text-sm opacity-90">Digitally monitored air pressure and environmental compliance by integrating facility BMS.</p>
+                 <div class="bg-[#1A2B42] text-white p-8 rounded-xl card-shadow card-hover transition-all duration-300">
+                    <p class="font-bold text-xl mb-3">BMS Integration</p>
+                    <p class="text-base opacity-90 leading-relaxed">Designed and executed an innovative infrastructure plan for Building Management System (BMS) integration, enabling digital monitoring of air pressure and environmental compliance, enhancing facility safety and regulatory adherence.</p>
                 </div>
-                 <div class="bg-blue-800 text-white p-6 rounded-xl shadow-lg">
-                    <p class="font-bold mb-2">Strategic IT Roadmap</p>
-                    <p class="text-sm opacity-90">Built the compliance and infrastructure roadmap to support future AI tools and analytics.</p>
+                 <div class="bg-[#1A2B42] text-white p-8 rounded-xl card-shadow card-hover transition-all duration-300">
+                    <p class="font-bold text-xl mb-3">Strategic IT Roadmap</p>
+                    <p class="text-base opacity-90 leading-relaxed">Developed a strategic roadmap for IT compliance and infrastructure growth, positioning the organization to effectively integrate future AI tools and leverage predictive analytics for enhanced clinical and operational insights.</p>
                 </div>
              </div>
         </section>
 
     </main>
     
-    <footer class="text-center py-8 mt-16 border-t border-slate-200">
-        <p class="text-slate-500">&copy; 2025 Milad Mousavi. All rights reserved.</p>
+    <footer class="text-center py-10 mt-20 border-t border-gray-200 bg-white">
+        <p class="text-gray-600 text-sm">&copy; 2025 Milad Mousavi. All rights reserved.</p>
     </footer>
 
     <script>
@@ -257,7 +276,7 @@
                     'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z', // Lock closed
                     'M10 20l4-16m4 4l-4 16M4 12h16' // Code
                 ],
-                colors: ['#3b82f6', '#1d4ed8', '#1e3a8a', '#172554']
+                colors: ['#00B8D9', '#1A2B42', '#333333', '#666666'] /* Updated colors for chart */
             };
 
             const timelineData = [
@@ -301,13 +320,13 @@
                 const listEl = document.getElementById('expertise-summary-list');
                 expertiseData.labels.forEach((label, index) => {
                     const li = document.createElement('li');
-                    li.className = 'flex items-center p-4 bg-slate-50 rounded-lg';
+                    li.className = 'flex items-center p-4 bg-gray-50 rounded-lg shadow-sm'; /* Updated styling */
                     li.innerHTML = `
-                        <div class="mr-4 p-2 bg-blue-100 rounded-full">
-                            <svg class="w-6 h-6 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${expertiseData.icons[index]}"></path></svg>
+                        <div class="mr-4 p-3 bg-gradient-to-br from-[#00B8D9] to-[#1A2B42] rounded-full flex-shrink-0">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${expertiseData.icons[index]}"></path></svg>
                         </div>
                         <div>
-                            <h4 class="font-bold text-slate-800">${label}</h4>
+                            <h4 class="font-bold text-gray-900 text-lg">${label}</h4>
                         </div>
                     `;
                     listEl.appendChild(li);
@@ -321,15 +340,15 @@
                         datasets: [{
                             data: expertiseData.data,
                             backgroundColor: expertiseData.colors,
-                            borderColor: '#f8fafc', // slate-50
-                            borderWidth: 4,
-                            hoverOffset: 8
+                            borderColor: '#F8F8F8', /* Matches new background */
+                            borderWidth: 6, /* Thicker border */
+                            hoverOffset: 12
                         }]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        cutout: '70%',
+                        cutout: '75%', /* Slightly larger cutout */
                         plugins: {
                             legend: {
                                 display: false
@@ -338,8 +357,23 @@
                                 enabled: true,
                                 mode: 'index',
                                 intersect: false,
-                                bodyFont: { size: 14, weight: 'bold' },
-                                displayColors: false
+                                bodyFont: { size: 16, weight: 'bold', family: 'Inter' },
+                                titleFont: { size: 14, weight: 'normal', family: 'Inter' },
+                                padding: 12,
+                                boxPadding: 8,
+                                displayColors: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
                             }
                         }
                     }
@@ -352,20 +386,20 @@
                     const div = document.createElement('div');
                     div.className = 'timeline-item';
                     div.innerHTML = `
-                        <div class="flex items-start cursor-pointer timeline-header" data-index="${index}">
-                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-800 text-white flex items-center justify-center z-10 timeline-dot">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <div class="flex items-start cursor-pointer timeline-header group" data-index="${index}">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#1A2B42] text-white flex items-center justify-center z-10 timeline-dot group-hover:scale-110 group-hover:bg-[#00B8D9] transition-all duration-300">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             </div>
-                            <div class="ml-4 w-full">
-                                <div class="bg-white p-4 rounded-xl shadow-md border border-slate-200">
-                                    <h3 class="font-bold text-slate-800">${item.role}</h3>
-                                    <p class="text-slate-500 text-sm">${item.company} | ${item.date}</p>
+                            <div class="ml-6 w-full">
+                                <div class="bg-white p-6 rounded-xl card-shadow border border-gray-200 group-hover:border-[#00B8D9] transition-all duration-300">
+                                    <h3 class="font-bold text-gray-900 text-xl mb-1">${item.role}</h3>
+                                    <p class="text-gray-600 text-base">${item.company} | ${item.date}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="ml-4 pl-10 timeline-item-content">
-                            <div class="bg-slate-100 p-6 rounded-b-xl border-x border-b border-slate-200 mt-[-8px]">
-                                <ul class="list-disc list-inside space-y-2 text-slate-600">
+                        <div class="ml-6 pl-12 timeline-item-content">
+                            <div class="bg-gray-50 p-8 rounded-b-xl border-x border-b border-gray-200 mt-[-10px] text-gray-700 leading-relaxed">
+                                <ul class="list-disc list-inside space-y-3">
                                     ${item.points.map(point => `<li>${point}</li>`).join('')}
                                 </ul>
                             </div>
@@ -383,15 +417,12 @@
                 container.addEventListener('click', (e) => {
                     const header = e.target.closest('.timeline-header');
                     if (header) {
-                        const index = header.dataset.index;
                         const content = header.closest('.timeline-item').querySelector('.timeline-item-content');
                         
-                        // Close all others
                         document.querySelectorAll('.timeline-item-content').forEach(c => {
                             if (c !== content) c.classList.remove('active');
                         });
                         
-                        // Toggle current
                         content.classList.toggle('active');
                     }
                 });
@@ -406,7 +437,7 @@
 
                 filteredCerts.forEach(cert => {
                     const div = document.createElement('div');
-                    div.className = 'bg-slate-100 p-3 rounded-lg text-slate-700 font-medium text-sm';
+                    div.className = 'bg-gray-100 p-4 rounded-lg text-gray-700 font-medium text-sm shadow-sm hover:bg-gray-200 transition-colors duration-200'; /* Updated styling */
                     div.textContent = cert.name;
                     grid.appendChild(div);
                 });
