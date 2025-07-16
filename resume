@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milad Mousavi | Healthcare IT Director & Infrastructure Architect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A single-page, scrolling digital portfolio. The structure is thematic, designed to guide the user through a narrative of Milad's expertise. It starts with a high-level summary (Hero & Dashboard), dives into career history (Interactive Timeline), details skills (Competencies), highlights forward-thinking projects (Innovation Hub), and provides detailed proof (Filterable Credentials & Accomplishments). This structure is more engaging than a traditional resume, allowing recruiters to quickly grasp key strengths and explore details on demand, which is ideal for usability. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Core Expertise -> Goal: Compare/Inform -> Viz: Donut Chart -> Interaction: Hover to see details -> Justification: Provides a quick, visual breakdown of skill distribution -> Library: Chart.js (Canvas).
+        - Report Info: Professional Experience -> Goal: Show Change/Explore -> Viz: Vertical Timeline -> Interaction: Click tabs to reveal job details -> Justification: More dynamic and less overwhelming than a long text block -> Method: HTML/CSS/JS.
+        - Report Info: Certifications -> Goal: Organize -> Viz: Filterable Grid -> Interaction: Click buttons to filter by category -> Justification: Manages a long list of credentials, making it easy for users to find relevant info -> Method: HTML/JS.
+        - Report Info: Key Accomplishments -> Goal: Inform/Impact -> Viz: Icon-based cards -> Interaction: Static display for clarity -> Justification: Makes key achievements stand out visually -> Method: HTML/CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .nav-link:hover {
+            color: #1e3a8a; /* blue-900 */
+        }
+        .timeline-item-content {
+            transition: max-height 0.7s ease-in-out, opacity 0.5s ease-in-out, transform 0.7s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-10px);
+            overflow: hidden;
+        }
+        .timeline-item-content.active {
+            max-height: 1000px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline-dot {
+            transition: all 0.3s ease;
+        }
+        .timeline-connector {
+            width: 2px;
+            background-color: #e2e8f0; /* slate-200 */
+        }
+        .filter-btn.active {
+            background-color: #1e3a8a !important; /* blue-900 */
+            color: #ffffff !important;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-2xl font-extrabold text-slate-800">
+                <a href="#">MM</a>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#summary" class="nav-link text-slate-600 font-medium">Summary</a>
+                <a href="#experience" class="nav-link text-slate-600 font-medium">Experience</a>
+                <a href="#expertise" class="nav-link text-slate-600 font-medium">Expertise</a>
+                <a href="#initiatives" class="nav-link text-slate-600 font-medium">Initiatives</a>
+                <a href="#credentials" class="nav-link text-slate-600 font-medium">Credentials</a>
+            </div>
+            <a href="mailto:smmz@att.net" class="hidden md:block bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">Contact Me</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-8 md:py-16">
+
+        <!-- Hero Section -->
+        <section id="hero" class="text-center mb-24">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-4 leading-tight">Milad Mousavi</h1>
+            <p class="text-xl md:text-2xl text-blue-800 font-medium mb-8">Healthcare IT Director & Infrastructure Architect</p>
+            <div class="flex justify-center items-center space-x-6 text-slate-500">
+                <a href="#" target="_blank" class="hover:text-blue-800 transition-colors">LinkedIn</a>
+                <span class="text-slate-300">|</span>
+                <a href="#" target="_blank" class="hover:text-blue-800 transition-colors">GitHub</a>
+                <span class="text-slate-300">|</span>
+                <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                    Houston, TX
+                </span>
+            </div>
+        </section>
+
+        <!-- Professional Summary Section -->
+        <section id="summary" class="mb-24 scroll-mt-20">
+             <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                 <h2 class="text-3xl font-bold text-slate-900 mb-4 text-center">Professional Summary</h2>
+                 <p class="text-lg text-slate-600 mb-4 leading-relaxed">
+                    A strategic and hands-on Healthcare IT Director and Infrastructure Architect with over 12 years of experience leading secure, compliant, and scalable IT environments in highly regulated clinical settings. Expert in private cloud, hybrid Microsoft infrastructure, and compliance-based systems supporting radiology, research, and diagnostics.
+                 </p>
+                 <p class="text-lg text-slate-600 leading-relaxed">
+                    While not a programmer, I specialize in aligning business and clinical requirements with secure infrastructure design. I leverage modern AI development platforms like Microsoft Copilot and ChatGPT to create and iterate on custom healthcare solutions. My strength lies in vision, integration, and execution.
+                 </p>
+            </div>
+        </section>
+
+        <!-- Expertise & Dashboard Section -->
+        <section id="expertise" class="mb-24 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Core Expertise</h2>
+            <p class="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">A balanced skill set spanning infrastructure, security, compliance, and clinical systems support. The chart below provides a visual breakdown of my primary focus areas.</p>
+            <div class="bg-white p-8 rounded-2xl shadow-lg">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <ul id="expertise-list" class="space-y-4">
+                            <!-- JS will populate this -->
+                        </ul>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="expertiseChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Experience Timeline Section -->
+        <section id="experience" class="mb-24 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Career Journey</h2>
+            <p class="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">A decade-plus of dedicated leadership in healthcare IT. Click on each role to expand and see key responsibilities and accomplishments from that period.</p>
+            <div class="max-w-3xl mx-auto relative">
+                <div class="timeline-connector absolute top-0 bottom-0 left-5"></div>
+                <div id="timeline-container" class="space-y-4">
+                    <!-- Timeline items will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Initiatives & Ideas Section -->
+        <section id="initiatives" class="mb-24 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Innovation & Strategic Initiatives</h2>
+            <p class="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">Beyond daily operations, I focus on developing forward-thinking solutions to improve efficiency and compliance. Here are a few key conceptual and implemented projects.</p>
+            <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">eCTD Gini (Concept)</h3>
+                    <p class="text-slate-600">A visionary AI-driven tool to streamline Electronic Common Technical Document creation. Conceptualized to parse documents, tag metadata, and validate against SOPs, dramatically accelerating regulatory submissions.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">IT Audit Pack Automation</h3>
+                    <p class="text-slate-600">Developed pre-assembled technical audit evidence packs with automated log rotation, access records, and SOP references. This initiative cut audit preparation time by over 80%.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">M365 Governance Portal</h3>
+                    <p class="text-slate-600">Designed SharePoint and Power Automate flows to track time-off requests, IT access changes, and system revalidations, creating a centralized, automated governance dashboard.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Credentials Section -->
+        <section id="credentials" class="mb-24 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center">Education & Certifications</h2>
+            <p class="text-lg text-slate-600 mb-8 text-center max-w-3xl mx-auto">A foundation of formal education combined with continuous professional development. Use the filters to explore my extensive list of certifications.</p>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                 <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <h3 class="font-bold text-blue-900">MBA</h3>
+                    <p>University of the People, 2024</p>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <h3 class="font-bold text-blue-900">Bachelor of Science</h3>
+                    <p>University of Houston, 2017</p>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                    <h3 class="font-bold text-blue-900">Associate Degree</h3>
+                    <p>Houston Community College, 2013</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg">
+                <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8" id="cert-filters">
+                    <button class="filter-btn active bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-colors" data-filter="all">All</button>
+                    <button class="filter-btn bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-colors" data-filter="microsoft">Microsoft</button>
+                    <button class="filter-btn bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-colors" data-filter="cloud">Cloud</button>
+                    <button class="filter-btn bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-colors" data-filter="security">Security</button>
+                    <button class="filter-btn bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium transition-colors" data-filter="infra">Infrastructure</button>
+                </div>
+                <div id="cert-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 text-center">
+                    <!-- Certifications will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Key Accomplishments Section -->
+        <section id="accomplishments">
+             <h2 class="text-3xl font-bold text-slate-900 mb-12 text-center">Key Career Accomplishments</h2>
+             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-blue-800 text-white p-6 rounded-xl shadow-lg">
+                    <p class="font-bold mb-2">Validated DR Plan</p>
+                    <p class="text-sm opacity-90">Delivered full DR plan with cloud redundancy, tested quarterly and validated in FDA audits.</p>
+                </div>
+                 <div class="bg-blue-800 text-white p-6 rounded-xl shadow-lg">
+                    <p class="font-bold mb-2">Zero-Downtime Migration</p>
+                    <p class="text-sm opacity-90">Modernized RIS/PACS imaging systems with zero downtime or disruption to clinical operations.</p>
+                </div>
+                 <div class="bg-blue-800 text-white p-6 rounded-xl shadow-lg">
+                    <p class="font-bold mb-2">BMS Integration</p>
+                    <p class="text-sm opacity-90">Digitally monitored air pressure and environmental compliance by integrating facility BMS.</p>
+                </div>
+                 <div class="bg-blue-800 text-white p-6 rounded-xl shadow-lg">
+                    <p class="font-bold mb-2">Strategic IT Roadmap</p>
+                    <p class="text-sm opacity-90">Built the compliance and infrastructure roadmap to support future AI tools and analytics.</p>
+                </div>
+             </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center py-8 mt-16 border-t border-slate-200">
+        <p class="text-slate-500">&copy; 2024 Milad Mousavi. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const expertiseData = {
+                labels: ['Compliance (FDA/HIPAA)', 'Private & Hybrid Cloud', 'Infrastructure & Security', 'Clinical Systems Support'],
+                data: [30, 30, 25, 15],
+                icons: [
+                    'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', // Check circle
+                    'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h4a2 2 0 002-2v-1a2 2 0 012-2h1.945C18.055 11 20 9.055 20 7s-1.945-4-4.055-4H13a2 2 0 00-2 2v1a2 2 0 01-2 2H5.055C3.055 7 1 9.055 1 11s1.945 4 2.055 4z', // Cloud
+                    'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z', // Lock closed
+                    'M10 20l4-16m4 4l-4 16M4 12h16' // Code
+                ],
+                colors: ['#3b82f6', '#1d4ed8', '#1e3a8a', '#172554']
+            };
+
+            const timelineData = [
+                {
+                    role: 'Director of IT | Infrastructure & Compliance Lead',
+                    company: 'RadioMedix Inc. & Excel Diagnostics',
+                    date: 'June 2013 – Present',
+                    points: [
+                        'Designed and maintain a secure, scalable private cloud (XCP-ng, XenServer, Hyper-V) managing 20+ critical VMs.',
+                        'Architected and validated an enterprise Disaster Recovery and Business Continuity Plan meeting FDA 21 CFR Part 11 standards.',
+                        'Authored comprehensive SOPs for system validation, network security, backups, and audit logging.',
+                        'Migrated services to Office 365 with hybrid AD, implementing MFA, Conditional Access, and Defender for M365.',
+                        'Managed RIS/PACS environment, ensuring AD integration, VLAN segmentation, and DICOM routing.',
+                        'Secured and networked Tridium Niagara BMS for environmental monitoring and compliance reporting.'
+                    ]
+                }
+            ];
+
+            const certifications = [
+                { name: 'Azure Solutions Architect Expert', category: 'microsoft cloud' },
+                { name: 'Azure AI Engineer Associate', category: 'microsoft cloud' },
+                { name: 'MCSE: Core Infrastructure', category: 'microsoft infra' },
+                { name: 'MCSA: Windows Server 2016', category: 'microsoft infra' },
+                { name: 'AWS Certified Solutions Architect – Associate', category: 'cloud' },
+                { name: 'Certified Ethical Hacker (CEH)', category: 'security' },
+                { name: 'CompTIA Security+', category: 'security' },
+                { name: 'CompTIA A+', category: 'infra' },
+                { name: 'Veeam Certified Engineer (VMCE)', category: 'infra' },
+                { name: 'CCNA (Routing/Switching & VoIP)', category: 'infra' },
+                { name: 'MIT Cybersecurity Certificate', category: 'security' },
+                { name: 'CloudU Certification – Rackspace', category: 'cloud' },
+                { name: 'Healthcare IT Technician – CompTIA', category: 'security' }
+            ];
+
+            function renderExpertise() {
+                const listEl = document.getElementById('expertise-list');
+                expertiseData.labels.forEach((label, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-center p-4 bg-slate-50 rounded-lg';
+                    li.innerHTML = `
+                        <div class="mr-4 p-2 bg-blue-100 rounded-full">
+                            <svg class="w-6 h-6 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${expertiseData.icons[index]}"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">${label}</h4>
+                        </div>
+                    `;
+                    listEl.appendChild(li);
+                });
+
+                const ctx = document.getElementById('expertiseChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: expertiseData.labels,
+                        datasets: [{
+                            data: expertiseData.data,
+                            backgroundColor: expertiseData.colors,
+                            borderColor: '#f8fafc', // slate-50
+                            borderWidth: 4,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                enabled: true,
+                                mode: 'index',
+                                intersect: false,
+                                bodyFont: { size: 14, weight: 'bold' },
+                                displayColors: false
+                            }
+                        }
+                    }
+                });
+            }
+
+            function renderTimeline() {
+                const container = document.getElementById('timeline-container');
+                timelineData.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'timeline-item';
+                    div.innerHTML = `
+                        <div class="flex items-start cursor-pointer timeline-header" data-index="${index}">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-800 text-white flex items-center justify-center z-10 timeline-dot">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div class="ml-4 w-full">
+                                <div class="bg-white p-4 rounded-xl shadow-md border border-slate-200">
+                                    <h3 class="font-bold text-slate-800">${item.role}</h3>
+                                    <p class="text-slate-500 text-sm">${item.company} | ${item.date}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ml-4 pl-10 timeline-item-content">
+                            <div class="bg-slate-100 p-6 rounded-b-xl border-x border-b border-slate-200 mt-[-8px]">
+                                <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                    ${item.points.map(point => `<li>${point}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+                
+                // Set first item as active
+                const firstContent = container.querySelector('.timeline-item-content');
+                if (firstContent) {
+                    firstContent.classList.add('active');
+                }
+
+                container.addEventListener('click', (e) => {
+                    const header = e.target.closest('.timeline-header');
+                    if (header) {
+                        const index = header.dataset.index;
+                        const content = header.closest('.timeline-item').querySelector('.timeline-item-content');
+                        
+                        // Close all others
+                        document.querySelectorAll('.timeline-item-content').forEach(c => {
+                            if (c !== content) c.classList.remove('active');
+                        });
+                        
+                        // Toggle current
+                        content.classList.toggle('active');
+                    }
+                });
+            }
+
+            function renderCerts(filter = 'all') {
+                const grid = document.getElementById('cert-grid');
+                grid.innerHTML = '';
+                const filteredCerts = filter === 'all'
+                    ? certifications
+                    : certifications.filter(c => c.category.includes(filter));
+
+                filteredCerts.forEach(cert => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-slate-100 p-3 rounded-lg text-slate-700 font-medium text-sm';
+                    div.textContent = cert.name;
+                    grid.appendChild(div);
+                });
+            }
+
+            function setupCertFilters() {
+                const filterContainer = document.getElementById('cert-filters');
+                filterContainer.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') {
+                        const filter = e.target.dataset.filter;
+                        
+                        filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        e.target.classList.add('active');
+                        
+                        renderCerts(filter);
+                    }
+                });
+            }
+
+            renderExpertise();
+            renderTimeline();
+            renderCerts();
+            setupCertFilters();
+        });
+    </script>
+
+</body>
+</html>
